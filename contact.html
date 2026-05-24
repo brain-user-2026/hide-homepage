@@ -73,7 +73,7 @@
               </div>
             </div>
             <p class="form-note">内容を確認後、通常1から2営業日を目安にご返信します。</p>
-            <button class="button primary" type="submit" data-demo-submit>相談内容を送信する</button>
+            <button class="button primary" type="submit">相談内容を送信する</button>
           </form>
         </div>
       </div>
@@ -82,5 +82,54 @@
 
   <footer class="site-footer"><div class="footer-shell"><div><strong>HIDEさんのホームページ</strong><br>ご相談をお待ちしています</div><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="service.html">Service</a><a href="company.html">Company</a></div></div></footer>
   <script src="assets/js/main.js"></script>
+  <script>
+    const GAS_URL = 'https://script.google.com/macros/s/AKfycbz0nZJsU-IYZT-m3jGciGMzvaSHYyyT4YgPIfmYD7BVxahoyh81-lsLtDeQE7EbqaJr/exec';
+
+    const form = document.querySelector('.contact-form');
+
+    if (form) {
+      const submitButton = form.querySelector('button[type="submit"]') || form.querySelector('button');
+      const statusMessage = document.createElement('p');
+      statusMessage.id = 'form-status';
+      form.appendChild(statusMessage);
+
+      form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        if (submitButton) {
+          submitButton.disabled = true;
+        }
+        statusMessage.textContent = '送信中...';
+
+        const payload = {
+          name: form.querySelector('[name="name"]')?.value || '',
+          company: form.querySelector('[name="company"]')?.value || '',
+          email: form.querySelector('[name="email"]')?.value || '',
+          category: form.querySelector('[name="category"]')?.value || '',
+          message: form.querySelector('[name="message"]')?.value || ''
+        };
+
+        try {
+          await fetch(GAS_URL, {
+            method: 'POST',
+            mode: 'no-cors',
+            headers: {
+              'Content-Type': 'text/plain;charset=utf-8'
+            },
+            body: JSON.stringify(payload)
+          });
+
+          statusMessage.textContent = '送信ありがとうございました';
+          form.reset();
+        } catch (error) {
+          statusMessage.textContent = '送信に失敗しました';
+        } finally {
+          if (submitButton) {
+            submitButton.disabled = false;
+          }
+        }
+      });
+    }
+    </script>
 </body>
 </html>
