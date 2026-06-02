@@ -625,14 +625,6 @@ h3 {
   grid-column: 1 / -1;
 }
 
-.honeypot-field {
-  position: absolute;
-  left: -9999px;
-  width: 1px;
-  height: 1px;
-  opacity: 0;
-}
-
 label {
   color: var(--navy);
   font-size: 14px;

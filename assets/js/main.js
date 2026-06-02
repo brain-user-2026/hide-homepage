@@ -52,8 +52,7 @@ if (contactForm) {
       company: contactForm.querySelector('[name="company"]')?.value || "",
       email: contactForm.querySelector('[name="email"]')?.value || "",
       category: contactForm.querySelector('[name="category"]')?.value || "",
-      message: contactForm.querySelector('[name="message"]')?.value || "",
-      website: contactForm.querySelector('[name="website"]')?.value || ""
+      message: contactForm.querySelector('[name="message"]')?.value || ""
     };
 
     try {
