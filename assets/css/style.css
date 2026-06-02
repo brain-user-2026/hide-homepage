@@ -543,6 +543,10 @@ h3 {
   box-shadow: var(--shadow);
 }
 
+.contact-form .hp-field {
+  display: none !important;
+}
+
 .form-grid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
