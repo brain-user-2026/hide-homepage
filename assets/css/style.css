@@ -428,9 +428,19 @@ h3 {
   background: #fff;
 }
 
-.notice time {
+.notice time,
+.notice-status {
   color: var(--blue);
   font-weight: 900;
+}
+
+.notice-status {
+  width: fit-content;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: #edf6ff;
+  font-size: 13px;
+  line-height: 1.5;
 }
 
 .notice strong {
@@ -615,6 +625,14 @@ h3 {
   grid-column: 1 / -1;
 }
 
+.honeypot-field {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+}
+
 label {
   color: var(--navy);
   font-size: 14px;
@@ -650,6 +668,18 @@ textarea:focus {
   margin: 0;
   color: var(--muted);
   font-size: 14px;
+}
+
+#form-status {
+  margin: 0;
+  color: var(--blue);
+  font-size: 14px;
+  font-weight: 800;
+}
+
+.contact-form button:disabled {
+  cursor: wait;
+  opacity: 0.72;
 }
 
 .site-footer {
@@ -765,6 +795,10 @@ textarea:focus {
   .footer-shell {
     display: grid;
   }
+
+  .footer-links {
+    row-gap: 8px;
+  }
 }
 
 @media (max-width: 600px) {
@@ -796,16 +830,32 @@ textarea:focus {
 
   .hero-actions {
     display: grid;
+    gap: 12px;
   }
 
-  .button {
+  .button,
+  .section.navy .button,
+  .contact-form .button {
     width: 100%;
+  }
+
+  .section-head {
+    margin-bottom: 28px;
   }
 
   .card,
   .skill-card,
   .contact-form {
     padding: 22px;
+  }
+
+  .notice {
+    padding: 18px;
+  }
+
+  .footer-shell {
+    gap: 18px;
+    padding: 30px 0;
   }
 
   .service-image {
