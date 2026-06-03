@@ -1,4 +1,4 @@
-const ADMIN_EMAIL = 'admin@example.com';
+const ADMIN_EMAIL = 'info@open-newstages-ai.com';
 const SPREADSHEET_ID = '';
 const SHEET_NAME = '';
 const RATE_LIMIT_SECONDS = 60;
