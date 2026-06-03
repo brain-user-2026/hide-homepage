@@ -1,4 +1,4 @@
-const ADMIN_EMAIL = 'admin@example.com';
+const ADMIN_EMAIL = 'nmiyu@cameo.plala.or.jp';
 const SPREADSHEET_ID = '';
 const SHEET_NAME = '';
 const RATE_LIMIT_SECONDS = 60;
@@ -23,22 +23,19 @@ function doPost(e) {
       message: cleanText(data.message)
     };
 
-    const sheet = getContactSheet();
-    sheet.appendRow([
-      new Date(),
-      savedData.name,
-      savedData.company,
-      savedData.email,
-      savedData.category,
-      savedData.message,
-      '未対応',
-      ''
-    ]);
+    const results = {
+      spreadsheet: runSafely('spreadsheet', function () {
+        return saveToSpreadsheet(savedData);
+      }),
+      adminNotification: runSafely('adminNotification', function () {
+        return sendAdminNotification(savedData);
+      }),
+      autoReply: runSafely('autoReply', function () {
+        return sendAutoReply(savedData);
+      })
+    };
 
-    sendAdminNotification(savedData);
-    sendAutoReply(savedData);
-
-    return jsonResponse({ ok: true });
+    return jsonResponse({ ok: true, results: results });
   } catch (error) {
     console.error(error);
     return jsonResponse({ ok: false, reason: 'server_error' });
@@ -59,10 +56,32 @@ function parseRequest(e) {
   return e.parameter || {};
 }
 
+function saveToSpreadsheet(data) {
+  const sheet = getContactSheet();
+  if (!sheet) {
+    return { status: 'skipped', reason: 'spreadsheet_not_configured' };
+  }
+
+  sheet.appendRow([
+    new Date(),
+    data.name,
+    data.company,
+    data.email,
+    data.category,
+    data.message,
+    '未対応',
+    ''
+  ]);
+
+  return { status: 'success' };
+}
+
 function getContactSheet() {
-  const spreadsheet = SPREADSHEET_ID
-    ? SpreadsheetApp.openById(SPREADSHEET_ID)
-    : SpreadsheetApp.getActiveSpreadsheet();
+  if (!SPREADSHEET_ID) {
+    return null;
+  }
+
+  const spreadsheet = SpreadsheetApp.openById(SPREADSHEET_ID);
 
   if (!SHEET_NAME) {
     return spreadsheet.getActiveSheet();
@@ -92,50 +111,50 @@ function isRateLimited(data) {
 }
 
 function sendAdminNotification(data) {
-  try {
-    const subject = '【お問い合わせ】' + (data.name || '名前未入力') + ' 様より';
-    const body = [
-      'Webサイトからお問い合わせが届きました。',
-      '',
-      '名前: ' + data.name,
-      '会社名: ' + data.company,
-      'メール: ' + data.email,
-      'カテゴリー: ' + data.category,
-      '',
-      '内容:',
-      data.message
-    ].join('\n');
-
-    MailApp.sendEmail(ADMIN_EMAIL, subject, body);
-  } catch (error) {
-    console.error('Admin notification failed', error);
+  if (!isValidEmail(ADMIN_EMAIL)) {
+    return { status: 'skipped', reason: 'admin_email_not_configured' };
   }
+
+  const subject = '【お問い合わせ】' + (data.name || '名前未入力') + ' 様より';
+  const body = [
+    'Webサイトからお問い合わせが届きました。',
+    '',
+    '名前: ' + data.name,
+    '会社名: ' + data.company,
+    'メール: ' + data.email,
+    'カテゴリー: ' + data.category,
+    '',
+    '内容:',
+    data.message
+  ].join('\n');
+
+  MailApp.sendEmail(ADMIN_EMAIL, subject, body);
+  return { status: 'success' };
 }
 
 function sendAutoReply(data) {
-  if (!isValidEmail(data.email)) return;
-
-  try {
-    const subject = 'お問い合わせありがとうございます';
-    const body = [
-      (data.name || 'お客様') + ' 様',
-      '',
-      'お問い合わせありがとうございます。',
-      '以下の内容で受け付けました。',
-      '内容を確認後、通常1から2営業日を目安にご返信いたします。',
-      '',
-      'カテゴリー: ' + data.category,
-      '',
-      'お問い合わせ内容:',
-      data.message,
-      '',
-      'このメールは自動返信です。'
-    ].join('\n');
-
-    MailApp.sendEmail(data.email, subject, body);
-  } catch (error) {
-    console.error('Auto reply failed', error);
+  if (!isValidEmail(data.email)) {
+    return { status: 'skipped', reason: 'invalid_email' };
   }
+
+  const subject = 'お問い合わせありがとうございます';
+  const body = [
+    (data.name || 'お客様') + ' 様',
+    '',
+    'お問い合わせありがとうございます。',
+    '以下の内容で受け付けました。',
+    '内容を確認後、通常1から2営業日を目安にご返信いたします。',
+    '',
+    'カテゴリー: ' + data.category,
+    '',
+    'お問い合わせ内容:',
+    data.message,
+    '',
+    'このメールは自動返信です。'
+  ].join('\n');
+
+  MailApp.sendEmail(data.email, subject, body);
+  return { status: 'success' };
 }
 
 function cleanText(value) {
@@ -144,6 +163,18 @@ function cleanText(value) {
 
 function isValidEmail(email) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || '').trim());
+}
+
+function runSafely(label, task) {
+  try {
+    return task();
+  } catch (error) {
+    console.error(label + ' failed', error);
+    return {
+      status: 'failed',
+      reason: error && error.message ? error.message : String(error)
+    };
+  }
 }
 
 function jsonResponse(payload) {
