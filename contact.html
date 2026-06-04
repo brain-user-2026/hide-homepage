@@ -4,8 +4,20 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Contact | HIDEさんのホームページ</title>
-  <meta name="description" content="AI・IT支援、コンサルティング、AI家庭教師のお問い合わせフォームです。">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <meta name="description" content="AI活用支援、Web制作・改善、業務効率化に関するご相談はこちらからお問い合わせください。">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="HIDEさんのホームページ">
+  <meta property="og:title" content="Contact | HIDEさんのホームページ">
+  <meta property="og:description" content="AI活用支援、Web制作・改善、業務効率化に関するご相談を受け付けています。">
+  <meta property="og:url" content="https://open-newstages-ai.com/contact.html">
+  <link rel="canonical" href="https://open-newstages-ai.com/contact.html">
+  <meta property="og:image" content="https://open-newstages-ai.com/assets/images/hero-consulting.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Contact | HIDEさんのホームページ">
+  <meta name="twitter:description" content="AI活用支援、Web制作・改善、業務効率化に関するご相談を受け付けています。">
+  <meta name="twitter:image" content="https://open-newstages-ai.com/assets/images/hero-consulting.png">
+  <link rel="icon" href="/assets/images/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="/assets/css/style.css">
 </head>
 <body>
   <header class="site-header">
@@ -23,7 +35,7 @@
       <div class="container">
         <p class="eyebrow">Contact</p>
         <h1>AI・IT活用の最初の一歩を、お聞かせください。</h1>
-        <p>コンサルティング、AI家庭教師、業務自動化など、現在の状況に合わせてご相談いただけます。</p>
+        <p>AI活用、Web制作・改善、業務効率化など、現在の状況に合わせてご相談いただけます。</p>
       </div>
     </section>
 
@@ -34,18 +46,18 @@
             <div class="section-head">
               <span class="section-label">Inquiry</span>
               <h2>お問い合わせフォーム</h2>
+              <p>相談内容がまだ固まっていない段階でも大丈夫です。現在の状況や気になっていることを簡単にお聞かせください。</p>
             </div>
             <div class="card">
               <h3>相談カテゴリーの目安</h3>
               <ul class="company-list">
-                <li>コンサル: DX推進、業務整理、システム導入相談</li>
-                <li>家庭教師: AIリテラシー、プロンプト実践、個別レッスン</li>
-                <li>その他: 講座、ウェビナー、協業のご相談</li>
+                <li>AI活用支援: 日常業務やWeb制作へのAI活用</li>
+                <li>Web制作・改善: 既存サイトの見直しや導線改善</li>
+                <li>業務効率化: Google WorkspaceやGASの活用相談</li>
               </ul>
             </div>
           </div>
           <form class="contact-form">
-            <input class="hp-field" type="text" name="website" autocomplete="off" tabindex="-1" aria-hidden="true" hidden>
             <div class="form-grid">
               <div class="field">
                 <label for="name">お名前</label>
@@ -62,8 +74,9 @@
               <div class="field">
                 <label for="category">ご相談カテゴリー</label>
                 <select id="category" name="category">
-                  <option>コンサル</option>
-                  <option>家庭教師</option>
+                  <option>AI活用支援</option>
+                  <option>Web制作・改善</option>
+                  <option>業務効率化</option>
                   <option>その他</option>
                 </select>
               </div>
@@ -73,7 +86,7 @@
               </div>
             </div>
             <p class="form-note">内容を確認後、通常1から2営業日を目安にご返信します。</p>
-            <button class="button primary" type="submit">相談内容を送信する</button>
+            <button class="button primary" type="submit">お問い合わせ内容を送信する</button>
           </form>
         </div>
       </div>
@@ -81,56 +94,6 @@
   </main>
 
   <footer class="site-footer"><div class="footer-shell"><div><strong>HIDEさんのホームページ</strong><br>ご相談をお待ちしています</div><div class="footer-links"><a href="index.html">Home</a><a href="about.html">About</a><a href="service.html">Service</a><a href="company.html">Company</a></div></div></footer>
-  <script src="assets/js/main.js"></script>
-  <script>
-    const GAS_URL ='https://script.google.com/macros/s/AKfycbz8nj8Y4_C9A7RNIOA8NO7Ky9zHnc2DownifGc3t_tItWkGwuI_RpCWboxRHfhYmNU/exec'
-
-    const form = document.querySelector('.contact-form');
-
-    if (form) {
-      const submitButton = form.querySelector('button[type="submit"]') || form.querySelector('button');
-      const statusMessage = document.createElement('p');
-      statusMessage.id = 'form-status';
-      form.appendChild(statusMessage);
-
-      form.addEventListener('submit', async (event) => {
-        event.preventDefault();
-
-        if (submitButton) {
-          submitButton.disabled = true;
-        }
-        statusMessage.textContent = '送信中...';
-
-        const payload = {
-          name: form.querySelector('[name="name"]')?.value || '',
-          company: form.querySelector('[name="company"]')?.value || '',
-          email: form.querySelector('[name="email"]')?.value || '',
-          category: form.querySelector('[name="category"]')?.value || '',
-          message: form.querySelector('[name="message"]')?.value || '',
-          website: form.querySelector('[name="website"]')?.value || ''
-        };
-
-        try {
-          await fetch(GAS_URL, {
-            method: 'POST',
-            mode: 'no-cors',
-            headers: {
-              'Content-Type': 'text/plain;charset=utf-8'
-            },
-            body: JSON.stringify(payload)
-          });
-
-          statusMessage.textContent = '送信ありがとうございました';
-          form.reset();
-        } catch (error) {
-          statusMessage.textContent = '送信に失敗しました';
-        } finally {
-          if (submitButton) {
-            submitButton.disabled = false;
-          }
-        }
-      });
-    }
-    </script>
+  <script src="/assets/js/main.js?v=20260603-contact"></script>
 </body>
 </html>
