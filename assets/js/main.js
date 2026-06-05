@@ -1,4 +1,4 @@
-const gasUrl = "https://script.google.com/macros/s/AKfycbz8nj8Y4_C9A7RNIOA8NO7Ky9zHnc2DownifGc3t_tItWkGwuI_RpCWboxRHfhYmNU/exec";
+const CONTACT_GAS_URL = "https://script.google.com/macros/s/AKfycbxPW_C3A9gS2ddYq81IslgkXu0djREOdwiQeXCr4KQYnKfe9UQ0-EHViDcei3BOww/exec";
 
 (function setupContactForm() {
   try {
@@ -37,7 +37,7 @@ const gasUrl = "https://script.google.com/macros/s/AKfycbz8nj8Y4_C9A7RNIOA8NO7Ky
       const payload = getPayload();
 
       try {
-        await fetch(gasUrl, {
+        await fetch(CONTACT_GAS_URL, {
           method: "POST",
           mode: "no-cors",
           headers: {
