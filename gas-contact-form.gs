@@ -2,7 +2,11 @@ const ADMIN_EMAIL = 'info@open-newstages-ai.com';
 
 function doPost(e) {
   try {
+    console.log('postData.contents', e && e.postData ? e.postData.contents : null);
+    console.log('postData.type', e && e.postData ? e.postData.type : null);
+    console.log('parameter data', JSON.stringify(e && e.parameter ? e.parameter : {}));
     const data = parseRequest(e);
+    console.log('parsed contact data', JSON.stringify(data));
 
     const savedData = {
       name: cleanText(data.name),
