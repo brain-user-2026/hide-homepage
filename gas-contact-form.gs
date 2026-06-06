@@ -29,6 +29,12 @@ function doPost(e) {
 function parseRequest(e) {
   if (!e) return {};
 
+  const parameterData = normalizeContactData(e.parameter || {});
+
+  if (hasContactValue(parameterData)) {
+    return parameterData;
+  }
+
   if (e.postData && e.postData.contents) {
     const contents = e.postData.contents;
 
@@ -37,27 +43,19 @@ function parseRequest(e) {
     } catch (error) {
       console.warn('Invalid JSON payload', error);
     }
-
-    try {
-      return normalizeContactData(parseUrlEncoded(contents));
-    } catch (error) {
-      console.warn('Invalid form payload', error);
-    }
   }
 
-  return normalizeContactData(e.parameter || {});
+  return parameterData;
 }
 
-function parseUrlEncoded(contents) {
-  return String(contents || '').split('&').reduce(function (params, pair) {
-    if (!pair) return params;
-
-    const parts = pair.split('=');
-    const key = decodeURIComponent(String(parts.shift() || '').replace(/\+/g, ' '));
-    const value = decodeURIComponent(parts.join('=').replace(/\+/g, ' '));
-    params[key] = value;
-    return params;
-  }, {});
+function hasContactValue(data) {
+  return Boolean(
+    cleanText(data.name) ||
+    cleanText(data.company) ||
+    cleanText(data.email) ||
+    cleanText(data.category) ||
+    cleanText(data.message)
+  );
 }
 
 function normalizeContactData(data) {
