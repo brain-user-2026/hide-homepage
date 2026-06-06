@@ -35,15 +35,18 @@ const CONTACT_GAS_URL = "https://script.google.com/macros/s/AKfycbxPW_C3A9gS2ddY
       statusMessage.textContent = "送信中です...";
 
       const payload = getPayload();
+      const requestBody = new URLSearchParams(payload).toString();
+      console.log("Contact form payload", payload);
+      console.log("Contact form request body", requestBody);
 
       try {
         await fetch(CONTACT_GAS_URL, {
           method: "POST",
           mode: "no-cors",
           headers: {
-            "Content-Type": "text/plain;charset=utf-8"
+            "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8"
           },
-          body: JSON.stringify(payload)
+          body: requestBody
         });
 
         statusMessage.textContent = "送信ありがとうございました。内容を確認してご返信します。";
