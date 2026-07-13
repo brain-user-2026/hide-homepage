@@ -1,31 +1,15 @@
-# Open Newstages AI
+# Assyu Sound Lab
 
-Netlifyで公開している静的ホームページです。AI・IT支援サービスの紹介、会社情報、お問い合わせ導線を掲載しています。
+Assyuの商用BGM・SNSサウンドを紹介する公開トップページです。
 
-## 公開URL
+## 公開ページ
 
-https://open-newstages-ai.com
+- `index.html`: Assyu LP
+- `assets/assyu/`: LP専用スタイルシートとビジュアル素材
 
-## 構成
+## 継続利用する家計簿アプリ
 
-- `index.html`: トップページ
-- `about.html`: 会社概要
-- `service.html`: サービス紹介
-- `company.html`: 会社情報
-- `contact.html`: お問い合わせ
-- `assets/css/style.css`: 共通スタイル
-- `assets/js/main.js`: ナビゲーションなどの共通JavaScript
-- `assets/`: 画像・CSS・JavaScript
+- `Input.html`: 家計簿アプリの画面
+- `household-accounting-app.gs`: 家計簿アプリのGoogle Apps Script
 
-## デプロイ
-
-GitHubの `main` ブランチに変更を反映すると、Netlifyへ自動デプロイされます。
-
-## 編集ルール
-
-- 既存デザインのトーンを大きく変えず、色・余白・角丸・カード表現をそろえる
-- 日本語サイトとして自然で読みやすい文章にする
-- モバイル表示ではテキストの折り返し、ナビゲーション、カード幅を確認する
-- Google Workspace / Netlify / GitHub の設定は勝手に変更しない
-- `netlify.toml` のセキュリティヘッダーは維持する
-- 変更前に目的を明確にし、対象ファイルを絞って編集する
+GitHubの`main`ブランチへの反映後、Netlifyで公開されます。

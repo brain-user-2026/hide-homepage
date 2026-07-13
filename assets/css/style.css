@@ -600,84 +600,6 @@ h3 {
   height: 34px;
 }
 
-.contact-form {
-  display: grid;
-  gap: 18px;
-  padding: 30px;
-  border: 1px solid var(--line);
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: var(--shadow);
-}
-
-.contact-form .hp-field {
-  display: none !important;
-}
-
-.form-grid {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 18px;
-}
-
-.field {
-  display: grid;
-  gap: 8px;
-}
-
-.field.full {
-  grid-column: 1 / -1;
-}
-
-label {
-  color: var(--navy);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-input,
-select,
-textarea {
-  width: 100%;
-  min-height: 48px;
-  padding: 12px 14px;
-  border: 1px solid #cfdbea;
-  border-radius: 8px;
-  color: var(--ink);
-  font: inherit;
-  background: #fff;
-}
-
-textarea {
-  min-height: 168px;
-  resize: vertical;
-}
-
-input:focus,
-select:focus,
-textarea:focus {
-  outline: 3px solid rgba(44, 199, 217, 0.24);
-  border-color: var(--cyan);
-}
-
-.form-note {
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-#form-status {
-  margin: 0;
-  color: var(--blue);
-  font-size: 14px;
-  font-weight: 800;
-}
-
-.contact-form button:disabled {
-  cursor: wait;
-  opacity: 0.72;
-}
-
 .site-footer {
   color: #d8e5f3;
   background: var(--navy);
@@ -830,8 +752,7 @@ textarea:focus {
   }
 
   .button,
-  .section.navy .button,
-  .contact-form .button {
+  .section.navy .button {
     width: 100%;
   }
 
@@ -840,8 +761,7 @@ textarea:focus {
   }
 
   .card,
-  .skill-card,
-  .contact-form {
+  .skill-card {
     padding: 22px;
   }
 
