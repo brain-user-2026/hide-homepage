@@ -1,0 +1,18 @@
+/* Audiostock URL発行後は、.cta-disabled を外して href付きのa要素へ差し替えてください。 */
+.cta-disabled {
+  cursor: not-allowed;
+  opacity: .64;
+}
+
+.button.cta-disabled {
+  transform: none;
+  filter: grayscale(.25);
+}
+
+.button.cta-disabled:hover {
+  transform: none;
+}
+
+.header-cta.cta-disabled {
+  border-bottom-color: rgba(255, 255, 255, .35);
+}
