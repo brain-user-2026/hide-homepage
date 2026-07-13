@@ -88,22 +88,21 @@
 }
 
 .tunecore-report {
+  width: 92%;
   max-width: 760px;
-  margin: 1.5rem 0 0;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+  margin: .9rem auto 0;
 }
 
 .tunecore-report img {
   display: block;
-  width: 1200px;
-  max-width: none;
+  width: 100%;
+  max-width: 100%;
   height: auto;
   border: 1px solid rgba(255, 255, 255, .2);
 }
 
 .tunecore-report figcaption {
-  margin-top: .55rem;
+  margin-top: .4rem;
   color: #9faec3;
   font-size: .7rem;
 }
@@ -133,6 +132,20 @@
   }
 
   .tunecore-report {
-    max-width: none;
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: .75rem auto 0;
+    margin-inline: auto;
+    overflow-x: visible;
+  }
+
+  .tunecore-report img {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin-inline: auto;
   }
 }
