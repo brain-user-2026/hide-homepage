@@ -1,0 +1,99 @@
+.contact-form {
+  max-width: 680px;
+  margin: 2.5rem auto 0;
+  text-align: left;
+}
+
+.contact-fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.contact-fields label {
+  display: block;
+  font-size: .85rem;
+}
+
+.contact-fields input,
+.contact-fields textarea {
+  display: block;
+  width: 100%;
+  margin-top: .5rem;
+  padding: .8rem;
+  border: 1px solid #8b9ab1;
+  border-radius: 0;
+  background: #fff;
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+
+.contact-fields textarea {
+  resize: vertical;
+  min-height: 10rem;
+}
+
+.contact-message,
+.contact-note,
+.contact-fields .button {
+  grid-column: 1 / -1;
+}
+
+.contact-note {
+  margin: 0;
+  color: #b7c1d3;
+  font-size: .78rem;
+  line-height: 1.8;
+}
+
+.contact-fields .button {
+  justify-self: start;
+  margin: 0;
+  border: 0;
+  font-family: inherit;
+  cursor: pointer;
+}
+
+.contact-fields:disabled .button {
+  opacity: .65;
+  cursor: wait;
+  transform: none;
+}
+
+.contact-fields :focus-visible,
+.contact-status:focus-visible {
+  outline: 3px solid #a5c0ff;
+  outline-offset: 3px;
+}
+
+.contact-status {
+  min-height: 1.8em;
+  margin: 1.25rem 0 0;
+  font-size: .85rem;
+  overflow-wrap: anywhere;
+}
+
+.contact-status[data-state="error"] {
+  color: #ffc7c7;
+}
+
+.profile-grid .muted a {
+  color: #b7c1d3;
+  text-decoration: underline;
+  text-underline-offset: .2em;
+}
+
+@media (max-width: 800px) {
+  .contact-fields {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .contact-fields .button {
+    width: 100%;
+  }
+}
